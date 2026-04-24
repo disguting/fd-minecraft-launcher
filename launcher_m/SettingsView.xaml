@@ -1,0 +1,153 @@
+﻿<UserControl x:Class="launcher_m.SettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+             Foreground="White"
+             Opacity="0">
+
+    <UserControl.RenderTransform>
+        <TranslateTransform Y="20"/>
+    </UserControl.RenderTransform>
+
+    <UserControl.Triggers>
+        <EventTrigger RoutedEvent="Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.25">
+                        <DoubleAnimation.EasingFunction>
+                            <QuarticEase EasingMode="EaseOut"/>
+                        </DoubleAnimation.EasingFunction>
+                    </DoubleAnimation>
+                    <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)" To="0" Duration="0:0:0.25">
+                        <DoubleAnimation.EasingFunction>
+                            <QuarticEase EasingMode="EaseOut"/>
+                        </DoubleAnimation.EasingFunction>
+                    </DoubleAnimation>
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </UserControl.Triggers>
+
+    <Grid Margin="40">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Text="{DynamicResource Loc_SettingsTitle}" FontSize="28" FontWeight="Bold" Margin="0,5,0,25"/>
+
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Padding="0,0,20,0">
+                <StackPanel MaxWidth="700" HorizontalAlignment="Left">
+
+                    <TextBlock Text="{DynamicResource Loc_RamAllocation}" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                    <TextBlock Text="{DynamicResource Loc_RamAllocationDesc}" Foreground="#FFAAAAAA" FontSize="13" TextWrapping="Wrap" Margin="0,0,0,15"/>
+
+                    <ui:Card Padding="20" Margin="0,0,0,30" Background="#11FFFFFF" BorderBrush="#22FFFFFF" BorderThickness="1">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="80"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <ui:SymbolIcon Symbol="Memory16" FontSize="28" Foreground="#FF4CAF50" Margin="0,0,15,0" VerticalAlignment="Center"/>
+
+                            <Slider x:Name="slRam" Grid.Column="1" Minimum="1024" Maximum="16384" Value="4096" 
+                                    TickFrequency="512" IsSnapToTickEnabled="True" 
+                                    VerticalAlignment="Center" Margin="0,0,20,0"/>
+
+                            <ui:TextBox Grid.Column="2" 
+                                        Text="{Binding Value, ElementName=slRam, UpdateSourceTrigger=PropertyChanged}" 
+                                        VerticalAlignment="Center" Height="35" HorizontalAlignment="Stretch" TextAlignment="Center"/>
+
+                            <TextBlock Grid.Column="3" Text="{DynamicResource Loc_MB}" Foreground="#FF888888" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="14"/>
+                        </Grid>
+                    </ui:Card>
+
+                    <TextBlock Text="{DynamicResource Loc_VersionFilter}" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                    <TextBlock Text="{DynamicResource Loc_VersionFilterDesc}" Foreground="#FFAAAAAA" FontSize="13" Margin="0,0,0,15"/>
+
+                    <ui:Card Padding="20" Margin="0,0,0,30" Background="#11FFFFFF" BorderBrush="#22FFFFFF" BorderThickness="1">
+                        <StackPanel>
+                            <StackPanel Margin="0,0,0,15">
+                                <ui:ToggleSwitch x:Name="ToggleSnapshots" Content="{DynamicResource Loc_ShowSnapshots}" FontSize="15" FontWeight="Medium"/>
+                                <TextBlock Text="{DynamicResource Loc_ShowSnapshotsDesc}" Foreground="#FF888888" FontSize="12" Margin="42,4,0,0" TextWrapping="Wrap"/>
+                            </StackPanel>
+
+                            <StackPanel>
+                                <ui:ToggleSwitch x:Name="ToggleOldVersions" Content="{DynamicResource Loc_ShowAlphaBeta}" FontSize="15" FontWeight="Medium"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </ui:Card>
+
+                    <TextBlock Text="{DynamicResource Loc_JvmArguments}" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                    <TextBlock Text="{DynamicResource Loc_JvmArgumentsDesc}" Foreground="#FFAAAAAA" FontSize="13" Margin="0,0,0,15"/>
+
+                    <ui:Card Padding="20" Margin="0,0,0,30" Background="#11FFFFFF" BorderBrush="#22FFFFFF" BorderThickness="1">
+                        <ui:TextBox x:Name="TxtJvmArgs" PlaceholderText="-XX:+UnlockExperimentalVMOptions -XX:+UseG1GC..." 
+                                    Height="100" TextWrapping="Wrap" AcceptsReturn="True" FontFamily="Consolas" FontSize="13" Background="#0AFFFFFF"/>
+                    </ui:Card>
+
+                    <TextBlock Text="{DynamicResource Loc_InterfaceLanguage}" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                    <TextBlock Text="{DynamicResource Loc_LanguageDesc}" Foreground="#FFAAAAAA" FontSize="13" Margin="0,0,0,15"/>
+
+                    <ui:Card Padding="20" Margin="0,0,0,20" Background="#11FFFFFF" BorderBrush="#22FFFFFF" BorderThickness="1">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <ui:SymbolIcon Symbol="LocalLanguage24" FontSize="28" Foreground="#FF03A9F4" Margin="0,0,15,0" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="cbLanguage" Grid.Column="1" SelectedIndex="0" Height="38" VerticalAlignment="Center" HorizontalAlignment="Stretch">
+                                <ComboBoxItem Content="Українська" Tag="uk-UA"/>
+                                <ComboBoxItem Content="English" Tag="en-US"/>
+                            </ComboBox>
+                        </Grid>
+                    </ui:Card>
+
+                    <TextBlock Text="{DynamicResource Loc_AuthorInfo}" Foreground="#FF666666" FontSize="13" Margin="0,15,0,0"/>
+
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+
+        <Grid Grid.Column="1" Margin="30,0,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Text="{DynamicResource Loc_Actions}" FontSize="20" FontWeight="SemiBold" Margin="0,10,0,25"/>
+
+            <StackPanel Grid.Row="1" VerticalAlignment="Top">
+
+                <ui:Button Content="{DynamicResource Loc_SaveSettings}" 
+                           Appearance="Primary" 
+                           Icon="{ui:SymbolIcon Save24}"
+                           Width="240" Height="45" FontSize="15" FontWeight="SemiBold"
+                           Margin="0,0,0,15"
+                           Click="BtnSaveSettings_Click"/>
+
+                <ui:Button Content="{DynamicResource Loc_OpenGameFolder}" 
+                           Icon="{ui:SymbolIcon Folder24}" 
+                           Appearance="Secondary"
+                           Width="240" Height="45" FontSize="15" FontWeight="Medium"
+                           Margin="0,0,0,15"
+                           Click="BtnOpenFolder_Click"/>
+
+
+                <TextBlock x:Name="TxtSaveStatus" Text="{DynamicResource Loc_SavedStatus}" Foreground="#FF4CAF50" 
+                           FontWeight="SemiBold" HorizontalAlignment="Center" Margin="0,20,0,0" 
+                           Visibility="Collapsed"/>
+            </StackPanel>
+        </Grid>
+
+    </Grid>
+</UserControl>

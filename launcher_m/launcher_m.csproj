@@ -1,0 +1,45 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>52011-200.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="52011-200.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CmlLib.Core" Version="4.0.6" />
+    <PackageReference Include="CmlLib.Core.Auth.Microsoft" Version="3.3.1" />
+    <PackageReference Include="HtmlAgilityPack" Version="1.12.4" />
+    <PackageReference Include="Microsoft.Identity.Client" Version="4.83.3" />
+    <PackageReference Include="WPF-UI" Version="4.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="CmlLib.Core.Installer.Forge">
+      <HintPath>C:\Users\disgusting\Desktop\CmlLib.Core.Installer.Forge.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+</Project>
