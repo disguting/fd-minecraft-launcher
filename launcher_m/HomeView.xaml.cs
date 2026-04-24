@@ -49,7 +49,7 @@ namespace launcher_m
         }
 
         private void BtnSupportArmy_Click(object sender, RoutedEventArgs e) => OpenLink("https://u24.gov.ua/uk/donate");
-        private void BtnSupportAuthor_Click(object sender, RoutedEventArgs e) => OpenLink("https://donatello.to/launcher_minecraft");
+        private void BtnSupportAuthor_Click(object sender, RoutedEventArgs e) => OpenLink("https://send.monobank.ua/jar/2iJkdH7vYZ");
         private void BtnReportBug_Click(object sender, RoutedEventArgs e) => OpenLink("https://t.me/+sD_T3k0IMMA3YzEy");
 
         private void OpenLink(string url)
