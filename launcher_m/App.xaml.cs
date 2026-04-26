@@ -1,7 +1,9 @@
 ﻿using System.Windows;
 using launcher_m.Core;
 using System;
-using System.Linq; 
+using System.Linq;
+using Wpf.Ui.Appearance;
+using System.Drawing;
 
 namespace launcher_m
 {
@@ -12,8 +14,13 @@ namespace launcher_m
             base.OnStartup(e);
 
             ConfigManager.Load();
-
             SetLanguage(ConfigManager.Data.Settings.Language);
+
+            Wpf.Ui.Appearance.ApplicationAccentColorManager.Apply(
+                System.Windows.Media.Color.FromRgb(180, 180, 180)
+                //Wpf.Ui.Appearance.ApplicationTheme.Dark
+            );
+
         }
 
         public void SetLanguage(string localeCode)

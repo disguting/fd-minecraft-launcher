@@ -280,8 +280,16 @@
                     <TextBlock Grid.Row="0" Text="{DynamicResource Loc_EditInstanceTitle}" FontSize="22" FontWeight="Bold" Margin="0,0,0,15"/>
 
                     <TabControl x:Name="EditTabControl" Grid.Row="1" Background="Transparent" BorderThickness="0" Margin="-5,0,-5,0" SelectionChanged="EditTabControl_SelectionChanged" VirtualizingStackPanel.IsVirtualizing="True">
+                        
 
-                        <TabItem x:Name="TabAddMods" Header="{DynamicResource Loc_TabAddMods}">
+                        <TabItem x:Name="TabAddMods">
+                            <TabItem.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <ui:SymbolIcon Symbol="List24" Margin="0,0,6,0" />
+
+                                    <TextBlock Text="{DynamicResource Loc_TabAddMods}" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </TabItem.Header>
                             <Grid Margin="0,15,0,0">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -374,7 +382,14 @@
                             </Grid>
                         </TabItem>
 
-                        <TabItem Header="{DynamicResource Loc_TabManageMods}">
+                        <TabItem x:Name="TabManageMods">
+                            <TabItem.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <ui:SymbolIcon Symbol="Wrench24" Margin="0,0,6,0" />
+
+                                    <TextBlock Text="{DynamicResource Loc_TabManageMods}" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </TabItem.Header>
                             <Grid Margin="0,15,0,0">
                                 <TextBlock x:Name="txtInstalledModsCount" Text="{DynamicResource Loc_InstalledCountZero}" Foreground="#FFAAAAAA" FontSize="12" Margin="0,0,0,10" VerticalAlignment="Top"/>
 
@@ -424,7 +439,14 @@
                             </Grid>
                         </TabItem>
 
-                        <TabItem Header="{DynamicResource Loc_TabResourcepacks}">
+                        <TabItem x:Name="TabResourcepacks">
+                            <TabItem.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <ui:SymbolIcon Symbol="Image24" Margin="0,0,6,0" />
+
+                                    <TextBlock Text="{DynamicResource Loc_TabResourcepacks}" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </TabItem.Header>
                             <Grid Margin="0,15,0,0">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="6*"/>
@@ -544,7 +566,14 @@
                             </Grid>
                         </TabItem>
 
-                        <TabItem Header="{DynamicResource Loc_TabShaders}">
+                        <TabItem x:Name="TabShaders">
+                            <TabItem.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <ui:SymbolIcon Symbol="WeatherSunny24" Margin="0,0,6,0" />
+
+                                    <TextBlock Text="{DynamicResource Loc_TabShaders}" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </TabItem.Header>
                             <Grid Margin="0,15,0,0">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="6*"/>
@@ -664,7 +693,13 @@
                             </Grid>
                         </TabItem>
 
-                        <TabItem Header="{DynamicResource Loc_TabSettings}">
+                        <TabItem x:Name="TabSettings">
+                            <TabItem.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <ui:SymbolIcon Symbol="Settings24" Margin="0,0,6,0" />
+                                    <TextBlock Text="{DynamicResource Loc_TabSettings}" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </TabItem.Header>
                             <StackPanel Margin="0,15,0,0">
                                 <TextBlock Text="{DynamicResource Loc_ChangeNameLabel}" Foreground="#FFAAAAAA" Margin="0,0,0,5"/>
                                 <ui:TextBox x:Name="txtEditName" Height="40" Margin="0,0,0,25" MaxLength="32"/>

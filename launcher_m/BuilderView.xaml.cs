@@ -676,9 +676,7 @@ namespace launcher_m
             var selectedTab = EditTabControl.SelectedItem as System.Windows.Controls.TabItem;
             if (selectedTab == null || _editingInstance == null) return;
 
-            string tabHeader = selectedTab.Header?.ToString() ?? "";
-
-            if (tabHeader == (Application.Current.TryFindResource("Loc_TabAddMods") as string))
+            if (selectedTab.Name == "TabAddMods")
             {
                 if (_modSearchResults.Count == 0)
                 {
@@ -686,21 +684,21 @@ namespace launcher_m
                     await PerformModSearchAsync();
                 }
             }
-            else if (tabHeader == (Application.Current.TryFindResource("Loc_TabManageMods") as string))
+            else if (selectedTab.Name == "TabManageMods")
             {
                 LoadLocalModsList(_editingInstance);
             }
-
-            else if (tabHeader == (Application.Current.TryFindResource("Loc_TabResourcepacks") as string))
+            else if (selectedTab.Name == "TabResourcepacks")
             {
                 RefreshLocalAddonsList("resourcepacks", ListLocalResPacks);
+
                 if (ListResPackSearchResults.ItemsSource == null)
                 {
                     txtSearchResPack.Text = "";
                     await SearchAddon("resourcepack", "", txtResPackSearchStatus, ListResPackSearchResults);
                 }
             }
-            else if (tabHeader == (Application.Current.TryFindResource("Loc_TabShaders") as string))
+            else if (selectedTab.Name == "TabShaders")
             {
                 RefreshLocalAddonsList("shaderpacks", ListLocalShaders);
 
@@ -770,7 +768,7 @@ namespace launcher_m
             try
             {
                 string facets = "[[\"project_type:modpack\"]]";
-                string url = $"https://api.modrinth.com/v2/search?query={Uri.EscapeDataString(query)}&facets={Uri.EscapeDataString(facets)}&index={sortIndex}&limit=50";
+                string url = $"https://api.modrinth.com/v2/search?query={Uri.EscapeDataString(query)}&facets={Uri.EscapeDataString(facets)}&index={sortIndex}&limit=100";
 
                 var response = await _httpClient.GetAsync(url);
                 response.EnsureSuccessStatusCode();

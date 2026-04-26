@@ -6,11 +6,11 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
-    <ApplicationIcon>launcher_icon.ico</ApplicationIcon>
+    <ApplicationIcon>icon_new.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="launcher_icon.ico" />
+    <Content Include="icon_new.ico" />
   </ItemGroup>
 
   <ItemGroup>
