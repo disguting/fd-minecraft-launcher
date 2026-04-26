@@ -179,5 +179,7 @@
     <system:String x:Key="Loc_AuthorInfo">Зроблено за 2 тижні. disgustingthree</system:String>
     
     <system:String x:Key="Loc_EditInstance">Редагувати збірку</system:String>
+    <system:String x:Key="Loc_MenuMoveUp">Перемістити вгору</system:String>
+    <system:String x:Key="Loc_MenuMoveDown">Перемістити вниз</system:String>
 
 </ResourceDictionary>

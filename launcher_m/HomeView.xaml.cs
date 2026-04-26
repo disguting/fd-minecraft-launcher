@@ -95,5 +95,56 @@ namespace launcher_m
                 }
             }
         }
+        private void MenuMoveUp_Click(object sender, RoutedEventArgs e)
+        {
+            MoveInstance(sender, -1);
+        }
+
+        private void MenuMoveDown_Click(object sender, RoutedEventArgs e)
+        {
+            MoveInstance(sender, 1);
+        }
+
+        private void MoveInstance(object sender, int direction)
+        {
+            if (sender is System.Windows.Controls.MenuItem menuItem &&
+                menuItem.Parent is System.Windows.Controls.ContextMenu contextMenu &&
+                contextMenu.PlacementTarget is FrameworkElement button)
+            {
+                var selectedInstance = button.DataContext as launcher_m.Models.GameInstance;
+
+                if (selectedInstance != null)
+                {
+                    var uiList = ListInstancesHome.ItemsSource as System.Collections.IList;
+                    if (uiList == null) return;
+
+                    int currentIndex = uiList.IndexOf(selectedInstance);
+                    int newIndex = currentIndex + direction;
+
+                    if (currentIndex >= 0 && newIndex >= 0 && newIndex < uiList.Count)
+                    {
+                        if (uiList is System.Collections.ObjectModel.ObservableCollection<launcher_m.Models.GameInstance> obsList)
+                        {
+                            obsList.Move(currentIndex, newIndex);
+                        }
+                        else
+                        {
+                            uiList.RemoveAt(currentIndex);
+                            uiList.Insert(newIndex, selectedInstance);
+                            ListInstancesHome.Items.Refresh();
+                        }
+
+                        var configList = launcher_m.Core.ConfigManager.Data.Instances;
+                        configList.Clear();
+                        foreach (launcher_m.Models.GameInstance item in uiList)
+                        {
+                            configList.Add(item);
+                        }
+
+                        launcher_m.Core.ConfigManager.Save();
+                    }
+                }
+            }
+        }
     }
 }
