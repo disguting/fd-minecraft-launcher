@@ -15,6 +15,9 @@ A custom-built Minecraft launcher developed in C# using the .NET framework. This
 * **License:** GNU GPL v3.0
 
 ## Installation and Build
+You can download the latest installer here:
+   https://github.com/disguting/fd-minecraft-launcher/releases
+
 To build this project locally, ensure you have Visual Studio 2022 and the .NET SDK installed.
 
 1. Clone the repository:
