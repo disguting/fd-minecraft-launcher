@@ -20,6 +20,8 @@ namespace launcher_m
 {
     public partial class MainWindow : FluentWindow
     {
+        public object _editingInstance;
+
         private bool _suppressNextNavAnimation = true;
         public MainWindow()
         {
@@ -350,6 +352,11 @@ namespace launcher_m
                 }
                 catch { }
             }), System.Windows.Threading.DispatcherPriority.Loaded);
+        }
+        public void OpenEditPage(object instance)
+        {
+            this._editingInstance = instance;
+            RootNavigation.Navigate(typeof(BuilderView));
         }
 
     }

@@ -50,10 +50,45 @@ namespace launcher_m
 
         private async void BuilderView_Loaded(object sender, RoutedEventArgs e)
         {
-
             await Task.Delay(50);
-
             LoadInstances();
+
+            if (Application.Current.MainWindow is MainWindow mainWindow && mainWindow._editingInstance != null)
+            {
+                var passedInstance = mainWindow._editingInstance as GameInstance;
+
+                if (passedInstance != null)
+                {
+                    ListInstances.SelectedItem = passedInstance;
+
+                    _editingInstance = passedInstance;
+
+                    txtEditName.Text = passedInstance.Name;
+                    for (int i = 0; i < listEditIcons.Items.Count; i++)
+                    {
+                        if (listEditIcons.Items[i] is ListBoxItem item && item.Content is SymbolIcon icon)
+                        {
+                            if (icon.Symbol.ToString() == passedInstance.IconSymbol)
+                            {
+                                listEditIcons.SelectedIndex = i;
+                                break;
+                            }
+                        }
+                    }
+                    LoadLocalModsList(passedInstance);
+
+                    EditDialogOverlay.Visibility = Visibility.Visible;
+                    EditTabControl.SelectedIndex = 0;
+
+                    _modSearchResults.Clear();
+                    txtSearchMod.Text = "";
+                    ListResPackSearchResults.ItemsSource = null;
+                    ListShaderSearchResults.ItemsSource = null;
+
+                    await PerformModSearchAsync();
+                }
+                mainWindow._editingInstance = null;
+            }
         }
 
         private void LoadInstances()

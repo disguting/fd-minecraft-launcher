@@ -177,6 +177,7 @@
     <system:String x:Key="Loc_ReportBugDesc">Знайшли баг? Розкажіть нам</system:String>
 
     <system:String x:Key="Loc_AuthorInfo">Зроблено за 2 тижні. disgustingthree</system:String>
-
+    
+    <system:String x:Key="Loc_EditInstance">Редагувати збірку</system:String>
 
 </ResourceDictionary>

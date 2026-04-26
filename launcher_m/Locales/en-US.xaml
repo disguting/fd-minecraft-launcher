@@ -177,5 +177,7 @@
 
     <system:String x:Key="Loc_AuthorInfo">Made in two weeks. disgustingthree</system:String>
 
+    <system:String x:Key="Loc_EditInstance">Edit instance</system:String>
+
 
 </ResourceDictionary>

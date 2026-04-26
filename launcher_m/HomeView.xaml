@@ -103,11 +103,12 @@
                                     CornerRadius="4" 
                                     Opacity="0"/>
 
-                            <ui:CardAction Padding="15" Click="Card_Click" Background="Transparent" BorderThickness="1" BorderBrush="#1AFFFFFF">
+                            <ui:CardAction Padding="15" Click="Card_Click" Background="Transparent" BorderThickness="1" BorderBrush="#1AFFFFFF" IsChevronVisible="False">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
 
                                     <Border x:Name="IconBorder" Width="50" Height="50" CornerRadius="8" Background="#15FFFFFF" Margin="0,0,15,0">
@@ -123,6 +124,28 @@
                                             <TextBlock x:Name="TxtStatus" Text="{DynamicResource Loc_ReadyToPlay}" FontSize="12" Foreground="#FFAAAAAA" VerticalAlignment="Center"/>
                                         </StackPanel>
                                     </StackPanel>
+
+                                    <ui:Button Grid.Column="2" 
+                                           Appearance="Transparent" 
+                                           Background="Transparent"
+                                           BorderThickness="0"
+                                           Padding="8,8" 
+                                           Margin="10,0,0,0" 
+                                           VerticalAlignment="Center" 
+                                           Click="BtnMoreOptions_Click">
+                                        <ui:SymbolIcon Symbol="MoreVertical24" FontSize="20" Foreground="#FFAAAAAA"/>
+
+                                        <ui:Button.ContextMenu>
+                                            <ContextMenu>
+                                                <MenuItem Header="{DynamicResource Loc_EditInstance}" Click="MenuEditInstance_Click">
+                                                    <MenuItem.Icon>
+                                                        <ui:SymbolIcon Symbol="Edit24"/>
+                                                    </MenuItem.Icon>
+                                                </MenuItem>
+                                            </ContextMenu>
+                                        </ui:Button.ContextMenu>
+                                    </ui:Button>
+
                                 </Grid>
                             </ui:CardAction>
                         </Grid>

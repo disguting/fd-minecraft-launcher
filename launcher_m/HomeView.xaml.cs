@@ -64,5 +64,36 @@ namespace launcher_m
             }
             catch { }
         }
+
+        private void BtnMoreOptions_Click(object sender, RoutedEventArgs e)
+        {
+            e.Handled = true;
+
+            if (sender is FrameworkElement button && button.ContextMenu != null)
+            {
+                button.ContextMenu.PlacementTarget = button;
+                button.ContextMenu.IsOpen = true;
+            }
+        }
+
+        private void MenuEditInstance_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is System.Windows.Controls.MenuItem menuItem &&
+                menuItem.Parent is System.Windows.Controls.ContextMenu contextMenu &&
+                contextMenu.PlacementTarget is FrameworkElement button)
+            {
+                var selectedInstance = button.DataContext;
+
+                if (selectedInstance != null)
+                {
+                    var mainWindow = System.Windows.Window.GetWindow(this) as MainWindow;
+
+                    if (mainWindow != null)
+                    {
+                        mainWindow.OpenEditPage(selectedInstance);
+                    }
+                }
+            }
+        }
     }
 }
