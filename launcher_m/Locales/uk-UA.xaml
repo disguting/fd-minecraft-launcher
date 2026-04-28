@@ -181,5 +181,8 @@
     <system:String x:Key="Loc_EditInstance">Редагувати збірку</system:String>
     <system:String x:Key="Loc_MenuMoveUp">Перемістити вгору</system:String>
     <system:String x:Key="Loc_MenuMoveDown">Перемістити вниз</system:String>
+    <system:String x:Key="Loc_GradientVisability">Видимість градієнта</system:String>
+    <system:String x:Key="Loc_Customization">Кастомізація лаунчера</system:String>
+    <system:String x:Key="Loc_CustomizationDesc">Налаштуйте зовнішній вигляд та поведінку лаунчера</system:String>
 
 </ResourceDictionary>

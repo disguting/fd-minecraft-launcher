@@ -28,6 +28,10 @@ namespace launcher_m
             InitializeComponent();
             UpdateStatus();
 
+            if (!launcher_m.Core.ConfigManager.Data.Settings.EnableGradient)
+            {
+                AnimatedBackgroundLayer.Visibility = Visibility.Collapsed;
+            }
             this.Loaded += (s, e) =>
             {
                 RootNavigation.Navigate(typeof(HomeView));

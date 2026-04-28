@@ -111,6 +111,23 @@
                             </ComboBox>
                         </Grid>
                     </ui:Card>
+                    <TextBlock Text="{DynamicResource Loc_Customization}" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                    <TextBlock Text="{DynamicResource Loc_CustomizationDesc}" Foreground="#FFAAAAAA" FontSize="13" Margin="0,0,0,15"/>
+
+                    <ui:Card Padding="20" Margin="0,0,0,30" Background="#11FFFFFF" BorderBrush="#22FFFFFF" BorderThickness="1">
+                        <StackPanel>
+                            <StackPanel Margin="0,0,0,0">
+                                <ui:ToggleSwitch x:Name="ToggleGradient" 
+                             Content="{DynamicResource Loc_GradientVisability}" 
+                             FontSize="15" 
+                             FontWeight="Medium"
+                             Checked="ToggleGradient_Checked"
+                             Unchecked="ToggleGradient_Unchecked"
+                             />
+                            </StackPanel>
+                        </StackPanel>
+                    </ui:Card>
+
 
                     <TextBlock Text="{DynamicResource Loc_AuthorInfo}" Foreground="#FF666666" FontSize="13" Margin="0,15,0,0"/>
 

@@ -27,6 +27,8 @@ namespace launcher_m
 
             TxtJvmArgs.Text = s.JvmArguments;
 
+            ToggleGradient.IsChecked = s.EnableGradient;
+
             foreach (ComboBoxItem item in cbLanguage.Items)
             {
                 if (item.Tag?.ToString() == s.Language) { cbLanguage.SelectedItem = item; break; }
@@ -41,6 +43,7 @@ namespace launcher_m
             s.ShowSnapshots = ToggleSnapshots.IsChecked ?? false;
             s.ShowAlphaBeta = ToggleOldVersions.IsChecked ?? false;
             s.JvmArguments = TxtJvmArgs.Text.Trim();
+            s.EnableGradient = ToggleGradient.IsChecked ?? true;
 
             if (cbLanguage.SelectedItem is ComboBoxItem langItem)
             {
@@ -115,6 +118,22 @@ namespace launcher_m
             {
                 string errFmt = Application.Current.TryFindResource("Loc_ErrorClearTemp") as string ?? "Помилка при очищенні: {0}";
                 MessageBox.Show(string.Format(errFmt, ex.Message));
+            }
+        }
+
+        private void ToggleGradient_Checked(object sender, RoutedEventArgs e)
+        {
+            if (Application.Current.MainWindow is MainWindow mainWindow)
+            {
+                mainWindow.AnimatedBackgroundLayer.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void ToggleGradient_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (Application.Current.MainWindow is MainWindow mainWindow)
+            {
+                mainWindow.AnimatedBackgroundLayer.Visibility = Visibility.Collapsed;
             }
         }
     }

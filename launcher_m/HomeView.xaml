@@ -66,7 +66,7 @@
                       ScrollViewer.CanContentScroll="True">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Grid Margin="0,0,30,12" Background="Transparent" RenderTransformOrigin="0, 0.5">
+                        <Grid Margin="0,3,30,12" Background="Transparent" RenderTransformOrigin="0, 0.5">
                             <Grid.RenderTransform>
                                 <ScaleTransform ScaleX="1" ScaleY="1"/>
                             </Grid.RenderTransform>

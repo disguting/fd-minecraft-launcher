@@ -180,6 +180,8 @@
     <system:String x:Key="Loc_EditInstance">Edit instance</system:String>
     <system:String x:Key="Loc_MenuMoveUp">Move up</system:String>
     <system:String x:Key="Loc_MenuMoveDown">Move down</system:String>
-
+    <system:String x:Key="Loc_GradientVisability">Gradient Visibility</system:String>
+    <system:String x:Key="Loc_Customization">Launcher customization</system:String>
+    <system:String x:Key="Loc_CustomizationDesc">Customize the appearance and behavior of the launcher</system:String>
 
 </ResourceDictionary>

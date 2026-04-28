@@ -36,6 +36,8 @@ namespace launcher_m.Models
         public bool ShowSnapshots { get; set; } = false;
         public bool ShowAlphaBeta { get; set; } = false;
         public string JvmArguments { get; set; } = "-XX:+UnlockExperimentalVMOptions -XX:+UseG1GC";
+
+        public bool EnableGradient { get; set; } = true; 
     }
 
     public class LauncherData
