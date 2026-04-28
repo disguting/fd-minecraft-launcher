@@ -16,10 +16,9 @@ namespace launcher_m
             ConfigManager.Load();
             SetLanguage(ConfigManager.Data.Settings.Language);
 
-            Wpf.Ui.Appearance.ApplicationAccentColorManager.Apply(
-                System.Windows.Media.Color.FromRgb(180, 180, 180)
-                //Wpf.Ui.Appearance.ApplicationTheme.Dark
-            );
+            //Wpf.Ui.Appearance.ApplicationAccentColorManager.Apply(
+            //    System.Windows.Media.Color.FromRgb(76, 175, 80)
+            //);
 
         }
 

@@ -10,15 +10,27 @@
                 <ui:ControlsDictionary />
             </ResourceDictionary.MergedDictionaries>
 
-            <Color x:Key="SystemAccentColor">#D3D3D3</Color>
+            <SolidColorBrush x:Key="AppAccentBrush" Color="#FF4CAF50"/>
 
-            <Color x:Key="SystemAccentColorLight1">#8E8E8E</Color>
-            <Color x:Key="SystemAccentColorLight2">#757575</Color>
-            <Color x:Key="SystemAccentColorLight3">#5C5C5C</Color>
-            <Color x:Key="SystemAccentColorDark1">#454545</Color>
-            <Color x:Key="SystemAccentColorDark2">#333333</Color>
+            <SolidColorBrush x:Key="AppTextBrush" Color="#FFFFFFFF"/>
 
-            <SolidColorBrush x:Key="SystemAccentColorBrush" Color="{StaticResource SystemAccentColor}" />
+            <SolidColorBrush x:Key="AppButtonBrush" Color="Gray"/>
+
+            <SolidColorBrush x:Key="AppGradientBrush" Color="#FF0A2614"/>
+
+
+            <SolidColorBrush x:Key="AppBackgroundBrush" Color="#FF060807"/>
+
+            <SolidColorBrush x:Key="AppModalBackgroundBrush" Color="#FF1E1E1E"/>
+
+            <SolidColorBrush x:Key="AppCardBackgroundBrush" Color="#0AFFFFFF"/>
+            <SolidColorBrush x:Key="AppCardBorderBrush" Color="#15FFFFFF"/>
+            <SolidColorBrush x:Key="AppOverlayBrush" Color="#C0000000"/>
+
+
+            <StaticResource x:Key="SystemAccentColorPrimaryBrush" ResourceKey="AppAccentBrush"/>
+            <SolidColorBrush x:Key="ControlFillColorSecondaryBrush" Color="#20000000"/>
+            <SolidColorBrush x:Key="ControlFillColorTertiaryBrush" Color="#40000000"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

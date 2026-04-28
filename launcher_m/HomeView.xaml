@@ -2,7 +2,7 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-             Foreground="White"
+             Foreground="{DynamicResource AppTextBrush}"
              Opacity="0">
     <UserControl.RenderTransform>
         <TranslateTransform Y="20"/>
@@ -53,7 +53,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <TextBlock Text="{DynamicResource Loc_MyInstances}" FontSize="28" FontWeight="Bold" Margin="0,0,0,20"/>
+            <TextBlock Text="{DynamicResource Loc_MyInstances}" FontSize="28" FontWeight="Bold" Margin="0,0,0,20" Foreground="{DynamicResource AppTextBrush}"/>
 
             <ListView x:Name="ListInstancesHome" 
                       Grid.Row="1" 
@@ -97,13 +97,14 @@
                             </Grid.Style>
 
                             <Border x:Name="SelectionHighlight" 
-                                    Background="#154CAF50" 
-                                    BorderBrush="#FF4CAF50" 
+                                    BorderBrush="{DynamicResource AppAccentBrush}" 
                                     BorderThickness="1.5" 
                                     CornerRadius="4" 
-                                    Opacity="0"/>
+                                    Opacity="0">
+                                <Border Background="{DynamicResource AppAccentBrush}" Opacity="0.08" CornerRadius="2.5"/>
+                            </Border>
 
-                            <ui:CardAction Padding="15" Click="Card_Click" Background="Transparent" BorderThickness="1" BorderBrush="#1AFFFFFF" IsChevronVisible="False">
+                            <ui:CardAction Padding="15" Click="Card_Click" Background="Transparent" BorderThickness="1" BorderBrush="{DynamicResource AppCardBorderBrush}" IsChevronVisible="False">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"/>
@@ -111,17 +112,18 @@
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
 
-                                    <Border x:Name="IconBorder" Width="50" Height="50" CornerRadius="8" Background="#15FFFFFF" Margin="0,0,15,0">
-                                        <ui:SymbolIcon x:Name="IconMain" Symbol="{Binding IconSymbol, FallbackValue=Box24}" FontSize="28" Foreground="#FF9E9E9E"/>
-                                    </Border>
+                                    <Grid Width="50" Height="50" Margin="0,0,15,0">
+                                        <Border x:Name="IconBg" Background="{DynamicResource AppTextBrush}" Opacity="0.08" CornerRadius="8"/>
+                                        <ui:SymbolIcon x:Name="IconMain" Symbol="{Binding IconSymbol, FallbackValue=Box24}" FontSize="28" Foreground="{DynamicResource AppTextBrush}" Opacity="0.62" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Grid>
 
                                     <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                                        <TextBlock x:Name="TxtTitle" Text="{Binding Name}" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,4" Foreground="White"/>
+                                        <TextBlock x:Name="TxtTitle" Text="{Binding Name}" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,4" Foreground="{DynamicResource AppTextBrush}"/>
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="{Binding GameVersion}" FontWeight="Medium" Foreground="#FFDDDDDD" Margin="0,0,5,0"/>
-                                            <TextBlock Text="{Binding LoaderType, StringFormat='• {0}'}" Foreground="#FFAAAAAA" Margin="0,0,15,0"/>
-                                            <ui:SymbolIcon x:Name="CheckIcon" Symbol="CheckmarkCircle24" FontSize="14" Foreground="#4CAF50" Visibility="Collapsed" Margin="0,0,5,0"/>
-                                            <TextBlock x:Name="TxtStatus" Text="{DynamicResource Loc_ReadyToPlay}" FontSize="12" Foreground="#FFAAAAAA" VerticalAlignment="Center"/>
+                                            <TextBlock Text="{Binding GameVersion}" FontWeight="Medium" Foreground="{DynamicResource AppTextBrush}" Opacity="0.86" Margin="0,0,5,0"/>
+                                            <TextBlock Text="{Binding LoaderType, StringFormat='• {0}'}" Foreground="{DynamicResource AppTextBrush}" Opacity="0.66" Margin="0,0,15,0"/>
+                                            <ui:SymbolIcon x:Name="CheckIcon" Symbol="CheckmarkCircle24" FontSize="14" Foreground="{DynamicResource AppAccentBrush}" Visibility="Collapsed" Margin="0,0,5,0"/>
+                                            <TextBlock x:Name="TxtStatus" Text="{DynamicResource Loc_ReadyToPlay}" FontSize="12" Foreground="{DynamicResource AppTextBrush}" Opacity="0.66" VerticalAlignment="Center"/>
                                         </StackPanel>
                                     </StackPanel>
 
@@ -133,7 +135,7 @@
                                        Margin="10,0,0,0" 
                                        VerticalAlignment="Center" 
                                        Click="BtnMoreOptions_Click">
-                                        <ui:SymbolIcon Symbol="MoreVertical24" FontSize="20" Foreground="#FFAAAAAA"/>
+                                        <ui:SymbolIcon Symbol="MoreVertical24" FontSize="20" Foreground="{DynamicResource AppTextBrush}" Opacity="0.66"/>
 
                                         <ui:Button.ContextMenu>
                                             <ContextMenu>
@@ -143,7 +145,7 @@
                                                     </MenuItem.Icon>
                                                 </MenuItem>
 
-                                                <Separator Background="#33FFFFFF" Margin="0,5"/>
+                                                <Separator Background="{DynamicResource AppCardBorderBrush}" Margin="0,5"/>
 
                                                 <MenuItem Header="{DynamicResource Loc_MenuMoveUp}" Click="MenuMoveUp_Click">
                                                     <MenuItem.Icon>
@@ -181,12 +183,15 @@
                                     </BeginStoryboard>
                                 </DataTrigger.ExitActions>
 
-                                <Setter TargetName="IconMain" Property="Foreground" Value="#FF4CAF50"/>
-                                <Setter TargetName="IconBorder" Property="Background" Value="#254CAF50"/>
-                                <Setter TargetName="TxtTitle" Property="Foreground" Value="#FF4CAF50"/>
+                                <Setter TargetName="IconMain" Property="Foreground" Value="{DynamicResource AppAccentBrush}"/>
+                                <Setter TargetName="IconMain" Property="Opacity" Value="1"/>
+                                <Setter TargetName="IconBg" Property="Background" Value="{DynamicResource AppAccentBrush}"/>
+                                <Setter TargetName="IconBg" Property="Opacity" Value="0.15"/>
+                                <Setter TargetName="TxtTitle" Property="Foreground" Value="{DynamicResource AppAccentBrush}"/>
                                 <Setter TargetName="CheckIcon" Property="Visibility" Value="Visible"/>
                                 <Setter TargetName="TxtStatus" Property="Text" Value="{DynamicResource Loc_Selected}"/>
-                                <Setter TargetName="TxtStatus" Property="Foreground" Value="#FF4CAF50"/>
+                                <Setter TargetName="TxtStatus" Property="Foreground" Value="{DynamicResource AppAccentBrush}"/>
+                                <Setter TargetName="TxtStatus" Property="Opacity" Value="1"/>
                             </DataTrigger>
                         </DataTemplate.Triggers>
                     </DataTemplate>
@@ -195,7 +200,7 @@
         </Grid>
 
         <StackPanel Grid.Column="2">
-            <TextBlock Text="{DynamicResource Loc_SupportTitle}" FontSize="20" FontWeight="Bold" Margin="0,0,0,20"/>
+            <TextBlock Text="{DynamicResource Loc_SupportTitle}" FontSize="20" FontWeight="Bold" Margin="0,0,0,20" Foreground="{DynamicResource AppTextBrush}"/>
 
             <ui:CardAction Margin="0,0,0,15" Padding="15" Background="#10FFD700" BorderBrush="#25FFD700" BorderThickness="1" Click="BtnSupportArmy_Click">
                 <Grid>
@@ -205,8 +210,8 @@
                     </Grid.ColumnDefinitions>
                     <ui:SymbolIcon Symbol="Heart24" FontSize="26" Foreground="#FFFFD700" Margin="0,0,15,0"/>
                     <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                        <TextBlock Text="{DynamicResource Loc_SupportArmy}" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,2" Foreground="White"/>
-                        <TextBlock Text="{DynamicResource Loc_SupportArmyDesc}" FontSize="12" Foreground="#FFAAAAAA"/>
+                        <TextBlock Text="{DynamicResource Loc_SupportArmy}" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,2" Foreground="{DynamicResource AppTextBrush}"/>
+                        <TextBlock Text="{DynamicResource Loc_SupportArmyDesc}" FontSize="12" Foreground="{DynamicResource AppTextBrush}" Opacity="0.66"/>
                     </StackPanel>
                 </Grid>
             </ui:CardAction>
@@ -219,8 +224,8 @@
                     </Grid.ColumnDefinitions>
                     <ui:SymbolIcon Symbol="Gift24" FontSize="26" Foreground="#FF4CAF50" Margin="0,0,15,0"/>
                     <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                        <TextBlock Text="{DynamicResource Loc_SupportAuthor}" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,2" Foreground="White"/>
-                        <TextBlock Text="{DynamicResource Loc_SupportAuthorDesc}" FontSize="12" Foreground="#FFAAAAAA"/>
+                        <TextBlock Text="{DynamicResource Loc_SupportAuthor}" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,2" Foreground="{DynamicResource AppTextBrush}"/>
+                        <TextBlock Text="{DynamicResource Loc_SupportAuthorDesc}" FontSize="12" Foreground="{DynamicResource AppTextBrush}" Opacity="0.66"/>
                     </StackPanel>
                 </Grid>
             </ui:CardAction>
@@ -233,8 +238,8 @@
                     </Grid.ColumnDefinitions>
                     <ui:SymbolIcon Symbol="Warning24" FontSize="26" Foreground="#FFF44336" Margin="0,0,15,0"/>
                     <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                        <TextBlock Text="{DynamicResource Loc_ReportBug}" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,2" Foreground="White"/>
-                        <TextBlock Text="{DynamicResource Loc_ReportBugDesc}" FontSize="12" Foreground="#FFAAAAAA"/>
+                        <TextBlock Text="{DynamicResource Loc_ReportBug}" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,2" Foreground="{DynamicResource AppTextBrush}"/>
+                        <TextBlock Text="{DynamicResource Loc_ReportBugDesc}" FontSize="12" Foreground="{DynamicResource AppTextBrush}" Opacity="0.66"/>
                     </StackPanel>
                 </Grid>
             </ui:CardAction>
