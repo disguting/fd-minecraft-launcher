@@ -4,6 +4,7 @@ using CmlLib.Core.Installer.Forge;
 using CmlLib.Core.ProcessBuilder;
 using launcher_m.Core;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -23,6 +24,7 @@ namespace launcher_m
         public object _editingInstance;
 
         private bool _suppressNextNavAnimation = true;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -32,18 +34,20 @@ namespace launcher_m
             {
                 AnimatedBackgroundLayer.Visibility = Visibility.Collapsed;
             }
+
             this.Loaded += (s, e) =>
             {
                 RootNavigation.Navigate(typeof(HomeView));
+
                 Dispatcher.BeginInvoke(new Action(() =>
                 {
-                try
-                {
-                    _ = Activator.CreateInstance(typeof(BuilderView));
-                    _ = Activator.CreateInstance(typeof(AccountsView));
-                    _ = Activator.CreateInstance(typeof(SettingsView));
-                }
-                catch { }
+                    try
+                    {
+                        _ = Activator.CreateInstance(typeof(BuilderView));
+                        _ = Activator.CreateInstance(typeof(AccountsView));
+                        _ = Activator.CreateInstance(typeof(SettingsView));
+                    }
+                    catch { }
 
                     _suppressNextNavAnimation = false;
 
@@ -55,9 +59,59 @@ namespace launcher_m
                         try { MoveSelectionLine(); } catch { }
                         NavContainer.LayoutUpdated -= handler;
                     };
+
                     NavContainer.LayoutUpdated += handler;
                 }), System.Windows.Threading.DispatcherPriority.ApplicationIdle);
+
+                _ = CheckLauncherUpdatesOnStartAsync();
             };
+        }
+
+        private async Task CheckLauncherUpdatesOnStartAsync()
+        {
+            try
+            {
+                await Task.Delay(1200);
+
+                var updateService = new fd_launcher.Core.UpdateService();
+                var update = await updateService.CheckForUpdatesAsync();
+
+                if (!update.IsUpdateAvailable)
+                    return;
+
+                string latestVersion = update.LatestVersion ?? "нова версія";
+
+                var result = System.Windows.MessageBox.Show(
+                    $"Нова версія FD Launcher доступна: {latestVersion}\n\nХочете оновити зараз?",
+                    "Доступне оновлення",
+                    System.Windows.MessageBoxButton.YesNo,
+                    System.Windows.MessageBoxImage.Information
+                );
+
+                if (result != System.Windows.MessageBoxResult.Yes)
+                    return;
+
+                if (!string.IsNullOrWhiteSpace(update.DownloadUrl))
+                {
+                    await updateService.DownloadAndOpenInstallerAsync(update.DownloadUrl);
+                }
+                else if (!string.IsNullOrWhiteSpace(update.ReleasePageUrl))
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = update.ReleasePageUrl,
+                        UseShellExecute = true
+                    });
+                }
+                else
+                {
+                    ShowAlert("Оновлення доступне, але не вдалося знайти посилання для завантаження.");
+                }
+            }
+            catch
+            {
+                // Не показуємо ерор юзеру щоб не подумав хуйні
+            }
         }
 
         public void UpdateStatus()
@@ -125,6 +179,7 @@ namespace launcher_m
                 };
 
                 MSession session;
+
                 if (activeAcc.IsOffline)
                 {
                     session = MSession.CreateOfflineSession(activeAcc.Username);
@@ -144,6 +199,7 @@ namespace launcher_m
 
                     string forgeText = Application.Current.TryFindResource("Loc_InstallingForgeStatus") as string ?? "Встановлення Forge";
                     TxtLaunchStatus.Text = $"{forgeText} {best.ForgeVersionName}...";
+
                     targetVersion = await forge.Install(activeInst.GameVersion, best.ForgeVersionName);
                 }
                 else if (activeInst.LoaderType == "Fabric")
@@ -154,6 +210,7 @@ namespace launcher_m
 
                 var settings = ConfigManager.Data.Settings;
                 var jvmArgs = new System.Collections.Generic.List<string>();
+
                 if (!string.IsNullOrWhiteSpace(settings.JvmArguments))
                 {
                     jvmArgs.AddRange(settings.JvmArguments.Split(' ', StringSplitOptions.RemoveEmptyEntries));
@@ -170,16 +227,20 @@ namespace launcher_m
                 };
 
                 var process = await launcher.CreateProcessAsync(targetVersion, launchOptions);
+
                 TxtLaunchStatus.Text = Application.Current.TryFindResource("Loc_GameStarting") as string ?? "Гра запускається!";
+
                 process.Start();
 
                 await Task.Delay(3000);
+
                 LaunchProgressPanel.Visibility = Visibility.Collapsed;
             }
             catch (Exception ex)
             {
                 string errText = Application.Current.TryFindResource("Loc_CriticalLaunchError") as string ?? "Критична помилка запуску:";
                 ShowAlert($"{errText}\n{ex.Message}");
+
                 LaunchProgressPanel.Visibility = Visibility.Collapsed;
             }
             finally
@@ -197,6 +258,7 @@ namespace launcher_m
 
                 using var doc = JsonDocument.Parse(loadersJson);
                 var root = doc.RootElement;
+
                 if (root.GetArrayLength() == 0)
                 {
                     string loaderErrText = Application.Current.TryFindResource("Loc_FabricLoaderNotFound") as string ?? "Не знайдено лоадер Fabric для версії";
@@ -204,6 +266,7 @@ namespace launcher_m
                 }
 
                 string loaderVersion = root[0].GetProperty("loader").GetProperty("version").GetString() ?? "";
+
                 string profileUrl = $"https://meta.fabricmc.net/v2/versions/loader/{mcVersion}/{loaderVersion}/profile/json";
                 string profileJson = await client.GetStringAsync(profileUrl);
 
@@ -236,6 +299,7 @@ namespace launcher_m
             {
                 _currentSelectedTab = selectedItem;
                 MoveSelectionLine();
+
                 if (!_suppressNextNavAnimation)
                     AnimateNavigationContent();
             }
@@ -248,7 +312,9 @@ namespace launcher_m
                 ContentPresenter? contentPresenter = FindVisualChild<ContentPresenter>(RootNavigation);
 
                 FrameworkElement target = contentPresenter as FrameworkElement ?? RootNavigation as FrameworkElement;
-                if (target == null) return;
+
+                if (target == null)
+                    return;
 
                 if (!(target.RenderTransform is TranslateTransform tt))
                 {
@@ -278,6 +344,7 @@ namespace launcher_m
 
                     target.BeginAnimation(UIElement.OpacityProperty, fadeIn);
                     tt.BeginAnimation(TranslateTransform.YProperty, slideUp);
+
                 }), System.Windows.Threading.DispatcherPriority.Render);
             }
             catch { }
@@ -288,12 +355,15 @@ namespace launcher_m
             try
             {
                 var backToggle = FindVisualChild<ToggleButton>(RootNavigation);
+
                 if (backToggle != null)
                 {
                     backToggle.Visibility = Visibility.Collapsed;
                     return;
                 }
+
                 var backBtn = FindVisualChild<System.Windows.Controls.Button>(RootNavigation);
+
                 if (backBtn != null)
                 {
                     backBtn.Visibility = Visibility.Collapsed;
@@ -304,16 +374,22 @@ namespace launcher_m
 
         private static T? FindVisualChild<T>(DependencyObject parent) where T : DependencyObject
         {
-            if (parent == null) return null;
+            if (parent == null)
+                return null;
 
             int count = VisualTreeHelper.GetChildrenCount(parent);
+
             for (int i = 0; i < count; i++)
             {
                 var child = VisualTreeHelper.GetChild(parent, i);
-                if (child is T typed) return typed;
+
+                if (child is T typed)
+                    return typed;
 
                 var result = FindVisualChild<T>(child);
-                if (result != null) return result;
+
+                if (result != null)
+                    return result;
             }
 
             return null;
@@ -326,7 +402,8 @@ namespace launcher_m
 
         private void MoveSelectionLine()
         {
-            if (_currentSelectedTab == null) return;
+            if (_currentSelectedTab == null)
+                return;
 
             Dispatcher.BeginInvoke(new Action(() =>
             {
@@ -340,7 +417,11 @@ namespace launcher_m
                     if (AnimatedSelectionLine.Opacity == 0)
                     {
                         SelectionLineTransform.X = targetX;
-                        AnimatedSelectionLine.BeginAnimation(UIElement.OpacityProperty, new DoubleAnimation(1, TimeSpan.FromMilliseconds(200)));
+                        AnimatedSelectionLine.BeginAnimation(
+                            UIElement.OpacityProperty,
+                            new DoubleAnimation(1, TimeSpan.FromMilliseconds(200))
+                        );
+
                         return;
                     }
 
@@ -352,16 +433,18 @@ namespace launcher_m
                     };
 
                     moveAnim.Freeze();
+
                     SelectionLineTransform.BeginAnimation(TranslateTransform.XProperty, moveAnim);
                 }
                 catch { }
+
             }), System.Windows.Threading.DispatcherPriority.Loaded);
         }
+
         public void OpenEditPage(object instance)
         {
             this._editingInstance = instance;
             RootNavigation.Navigate(typeof(BuilderView));
         }
-
     }
 }

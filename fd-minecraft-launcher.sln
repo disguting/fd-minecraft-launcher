@@ -1,0 +1,29 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "launcher_m", "launcher_m", "{799B2748-F7B5-8C1C-CF5E-7314BB5B1D6C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "fd_launcher", "launcher_m\fd_launcher.csproj", "{DBEF3522-85AB-67DA-2B86-356FB8261060}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DBEF3522-85AB-67DA-2B86-356FB8261060}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBEF3522-85AB-67DA-2B86-356FB8261060}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBEF3522-85AB-67DA-2B86-356FB8261060}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBEF3522-85AB-67DA-2B86-356FB8261060}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DBEF3522-85AB-67DA-2B86-356FB8261060} = {799B2748-F7B5-8C1C-CF5E-7314BB5B1D6C}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C975BD44-246A-4F42-AC51-221C17A3C430}
+	EndGlobalSection
+EndGlobal
